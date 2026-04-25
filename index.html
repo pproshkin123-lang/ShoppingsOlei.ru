@@ -282,109 +282,6 @@
             color: #444;
         }
 
-        /* sticky filter */
-        .sticky-filter {
-            position: sticky;
-            top: 80px;
-            background: #fff;
-            z-index: 50;
-            padding: 1.2rem 2.5rem;
-            border-bottom: 1px solid #f6f6f6;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-        }
-        .search-wrapper {
-            display: flex;
-            align-items: center;
-            border: 1px solid #eaeaea;
-            border-radius: 40px;
-            padding: 0.6rem 1.5rem;
-            width: 100%;
-            max-width: 420px;
-            background: #fff;
-            transition: border 0.2s;
-            position: relative;
-        }
-        .search-wrapper:focus-within { border-color: var(--accent); }
-        .search-wrapper input {
-            border: none;
-            outline: none;
-            font-size: 0.9rem;
-            width: 100%;
-            background: transparent;
-            padding: 0.3rem 0;
-            font-weight: 400;
-        }
-        .search-wrapper svg {
-            width: 17px;
-            height: 17px;
-            stroke: #999;
-            margin-right: 0.7rem;
-            flex-shrink: 0;
-        }
-        .search-suggestions {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #fff;
-            border: 1px solid #eee;
-            border-radius: 0 0 12px 12px;
-            list-style: none;
-            display: none;
-            z-index: 10;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
-            margin-top: 4px;
-            overflow: hidden;
-        }
-        .search-suggestions li {
-            padding: 0.8rem 1.5rem;
-            cursor: pointer;
-            font-size: 0.85rem;
-            transition: background 0.2s;
-        }
-        .search-suggestions li:hover {
-            background: #fdf3f8;
-            color: var(--accent);
-        }
-        .reset-btn {
-            background: none;
-            border: 1px solid #ddd;
-            border-radius: 30px;
-            padding: 0.55rem 1.6rem;
-            font-size: 0.8rem;
-            cursor: pointer;
-            color: #666;
-            transition: 0.2s;
-            display: none;
-            letter-spacing: 0.5px;
-        }
-        .reset-btn:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        .active-filter-chip {
-            background: var(--accent);
-            color: #fff;
-            border-radius: 30px;
-            padding: 0.4rem 1.2rem;
-            font-size: 0.75rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .active-filter-chip button {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.1rem;
-            cursor: pointer;
-            line-height: 1;
-        }
-
         /* product grid */
         .product-grid {
             display: grid;
@@ -537,38 +434,33 @@
         }
         .dot.active { background: var(--accent); }
 
-        /* увеличен отступ между названием и кнопкой */
         .card-info {
-            padding: 18px 16px 24px;
+            padding: 12px 14px 16px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            justify-content: space-between;
-            min-height: 90px;
+            gap: 8px;
         }
         .card-title {
             font-weight: 500;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text);
-            line-height: 1.3;
-            max-height: 2.6em;
+            line-height: 1.2;
+            white-space: nowrap;
             overflow: hidden;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            width: 100%;
-            margin-bottom: auto;
+            text-overflow: ellipsis;
+            max-width: 100%;
         }
         .order-btn {
             background: transparent;
             color: var(--accent);
             border: 1.5px solid var(--accent);
             border-radius: 30px;
-            padding: 10px 22px;
-            font-size: 0.75rem;
+            padding: 8px 18px;
+            font-size: 0.7rem;
             font-weight: 600;
-            letter-spacing: 1.5px;
+            letter-spacing: 1.2px;
             cursor: pointer;
             transition: all 0.3s;
             text-transform: uppercase;
@@ -576,7 +468,6 @@
             align-items: center;
             gap: 6px;
             line-height: 1;
-            margin-top: 12px;
         }
         .order-btn::after {
             content: '→';
@@ -591,13 +482,12 @@
         }
         .order-btn:hover::after { transform: translateX(2px); }
 
-        /* modals — убран блюр, фон стал полупрозрачным без размытия */
+        /* modals */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.5);
-            /* backdrop-filter удалён, чтобы фото было чётким */
             justify-content: center;
             align-items: center;
             z-index: 200;
@@ -607,8 +497,8 @@
         .modal-content {
             background: #fff;
             border-radius: 12px;
-            padding: 2.5rem;
-            max-width: 650px;
+            padding: 2rem;
+            max-width: 500px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
@@ -617,15 +507,47 @@
         }
         .modal-close {
             position: absolute;
-            top: 1.2rem;
-            right: 1.2rem;
+            top: 1rem;
+            right: 1rem;
             background: none;
             border: none;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             cursor: pointer;
             color: #888;
         }
         .modal-close:hover { color: var(--accent); }
+
+        .search-input-wrap {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 0.5rem 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .search-input-wrap input {
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            width: 100%;
+        }
+        .search-suggestions {
+            list-style: none;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-top: 0.5rem;
+        }
+        .search-suggestions li {
+            padding: 0.7rem 1rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .search-suggestions li:hover {
+            background: #fdf3f8;
+            color: var(--accent);
+        }
 
         .quick-slider {
             position: relative;
@@ -826,21 +748,17 @@
             .mobile-nav-bar { display: flex; }
             body { padding-bottom: var(--mobile-bar-height); }
             .footer { padding-bottom: calc(2rem + var(--mobile-bar-height)); }
-            .footer-grid {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 1rem;
-            }
-            .footer-col { min-width: 0; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
             .footer-col h4 { font-size: 0.75rem; }
             .footer-col p, .footer-col li { font-size: 0.7rem; }
             .social-icons { gap: 0.8rem; }
-            .sticky-filter { padding: 0.8rem 1rem; }
         }
         @media (max-width: 480px) {
             .product-grid { gap: 12px; }
             .header { padding: 0 1rem; }
             .logo-text { font-size: 1.5rem; }
+            .card-title { font-size: 0.75rem; }
+            .order-btn { padding: 6px 16px; font-size: 0.65rem; }
         }
     </style>
 </head>
@@ -903,16 +821,6 @@
     <details><summary>ДОМ</summary><div class="sub-links"><a data-filter="home">Все для дома</a><a data-subfilter="kitchen">Кухня</a><a data-subfilter="textiles">Текстиль</a></div></details>
 </div>
 
-<div class="sticky-filter">
-    <div class="search-wrapper" id="searchWrapper">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" id="searchInput" placeholder="Поиск по каталогу..." autocomplete="off">
-        <ul class="search-suggestions" id="searchSuggestions"></ul>
-    </div>
-    <button class="reset-btn" id="resetFiltersBtn">Сбросить</button>
-    <div id="activeFilterChip" class="active-filter-chip" style="display:none;"><span id="chipLabel"></span><button id="clearChipBtn">&times;</button></div>
-</div>
-
 <main class="product-grid" id="productGrid"></main>
 
 <footer class="footer">
@@ -935,6 +843,19 @@
     <div class="copyright">© 2025 SHSO. Все права защищены.</div>
 </footer>
 
+<!-- модалка поиска -->
+<div class="modal" id="searchModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('searchModal')">&times;</button>
+        <div class="search-input-wrap">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="#999" style="margin-right:0.5rem;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="searchInput" placeholder="Поиск по каталогу..." autocomplete="off">
+        </div>
+        <ul class="search-suggestions" id="searchSuggestions"></ul>
+    </div>
+</div>
+
+<!-- quick view -->
 <div class="modal" id="quickViewModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('quickViewModal')">&times;</button>
@@ -953,6 +874,7 @@
     </div>
 </div>
 
+<!-- избранное -->
 <div class="modal" id="favoritesModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('favoritesModal')">&times;</button>
@@ -961,6 +883,7 @@
     </div>
 </div>
 
+<!-- профиль -->
 <div class="modal" id="profileModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
@@ -973,6 +896,7 @@
     </div>
 </div>
 
+<!-- мобильная панель -->
 <div class="mobile-nav-bar" id="mobileNavBar">
     <button class="nav-icon" id="navCatalog"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Каталог</span></button>
     <button class="nav-icon" id="navSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Поиск</span></button>
@@ -984,65 +908,24 @@
 (function() {
     const products = [];
 
-    // Удалена вторая карточка, оставлены три реальных товара
     products.push({
-        id: 'custom-1',
-        title: 'Штаны ZEGNA',
-        description: 'Size M-3XL',
-        category: 'men',
-        subcategory: 'clothing',
-        images: [
-            "https://i.postimg.cc/DwyS9YDY/photo-2026-04-25-12-14-22.jpg",
-            "https://i.postimg.cc/P53CTQs2/photo-2026-04-25-12-14-31.jpg",
-            "https://i.postimg.cc/3xJksb6s/photo-2026-04-25-12-14-34.jpg",
-            "https://i.postimg.cc/sg6Ms4dK/photo-2026-04-25-12-14-39.jpg"
-        ],
+        id: 'custom-1', title: 'Штаны ZEGNA', description: 'Size M-3XL', category: 'men', subcategory: 'clothing',
+        images: ["https://i.postimg.cc/DwyS9YDY/photo-2026-04-25-12-14-22.jpg","https://i.postimg.cc/P53CTQs2/photo-2026-04-25-12-14-31.jpg","https://i.postimg.cc/3xJksb6s/photo-2026-04-25-12-14-34.jpg","https://i.postimg.cc/sg6Ms4dK/photo-2026-04-25-12-14-39.jpg"],
         isNew: false
     });
     products.push({
-        id: 'custom-3',
-        title: 'Штаны ZEGNA',
-        description: 'Size M-3XL',
-        category: 'men',
-        subcategory: 'clothing',
-        images: [
-            "https://i.postimg.cc/ryRnXfW5/photo-2026-04-25-12-15-14.jpg",
-            "https://i.postimg.cc/44HLkWtz/photo-2026-04-25-12-15-16.jpg",
-            "https://i.postimg.cc/T257Mtmg/photo-2026-04-25-12-15-20.jpg",
-            "https://i.postimg.cc/BZPY9mDK/photo-2026-04-25-12-15-23.jpg"
-        ],
+        id: 'custom-3', title: 'Штаны ZEGNA', description: 'Size M-3XL', category: 'men', subcategory: 'clothing',
+        images: ["https://i.postimg.cc/ryRnXfW5/photo-2026-04-25-12-15-14.jpg","https://i.postimg.cc/44HLkWtz/photo-2026-04-25-12-15-16.jpg","https://i.postimg.cc/T257Mtmg/photo-2026-04-25-12-15-20.jpg","https://i.postimg.cc/BZPY9mDK/photo-2026-04-25-12-15-23.jpg"],
         isNew: false
     });
     products.push({
-        id: 'custom-4',
-        title: 'Куртка ZEGNA',
-        description: 'Size 48/56',
-        category: 'men',
-        subcategory: 'clothing',
-        images: [
-            "https://i.postimg.cc/hvt92P9v/photo-2026-04-25-12-15-46.jpg",
-            "https://i.postimg.cc/j2SzMdzP/photo-2026-04-25-12-15-51.jpg",
-            "https://i.postimg.cc/D0wqxyqG/photo-2026-04-25-12-15-54.jpg",
-            "https://i.postimg.cc/kGgxTXxt/photo-2026-04-25-12-16-00.jpg"
-        ],
+        id: 'custom-4', title: 'Куртка ZEGNA', description: 'Size 48/56', category: 'men', subcategory: 'clothing',
+        images: ["https://i.postimg.cc/hvt92P9v/photo-2026-04-25-12-15-46.jpg","https://i.postimg.cc/j2SzMdzP/photo-2026-04-25-12-15-51.jpg","https://i.postimg.cc/D0wqxyqG/photo-2026-04-25-12-15-54.jpg","https://i.postimg.cc/kGgxTXxt/photo-2026-04-25-12-16-00.jpg"],
         isNew: true
     });
 
-    // генерируем остальные 37 товаров (чтобы всего было 40)
-    const subcategories = {
-        women: ['clothing','clothing','clothing','shoes','shoes','accessories','clothing','clothing','shoes','accessories','clothing','clothing','shoes','accessories','clothing'],
-        men: ['shoes','clothing','clothing','clothing','shoes','accessories','clothing','shoes','clothing','accessories'],
-        kids: ['clothing','clothing','shoes','accessories','clothing','shoes'],
-        jewelry: ['rings','bracelets','necklaces','pendants','rings'],
-        home: ['kitchen','textiles','kitchen','textiles']
-    };
-    const names = {
-        women: ['Кашемировое пальто','Шёлковое платье','Кожаная куртка','Ботильоны','Кроссовки','Шелковый платок','Жакет букле','Вечернее платье','Оверсайз свитер','Клатч','Топ с вышивкой','Кардиган','Лоферы','Ремень','Пиджак'],
-        men: ['Кожаные лоферы','Пальто даффлкот','Рубашка оксфорд','Твидовый пиджак','Джинсы слим','Запонки','Кашемировый свитер','Монки','Классические брюки','Часы'],
-        kids: ['Детский пуховик','Платье для девочки','Кроссовки детские','Рюкзак','Комбинезон малыш','Куртка подросток'],
-        jewelry: ['Серебряное кольцо','Золотой браслет','Жемчужное колье','Подвеска с бриллиантом','Кольцо с изумрудом'],
-        home: ['Дизайнерская ваза','Льняные салфетки','Кухонный миксер','Плед кашемир']
-    };
+    const subcategories = { women: ['clothing','clothing','clothing','shoes','shoes','accessories','clothing','clothing','shoes','accessories','clothing','clothing','shoes','accessories','clothing'], men: ['shoes','clothing','clothing','clothing','shoes','accessories','clothing','shoes','clothing','accessories'], kids: ['clothing','clothing','shoes','accessories','clothing','shoes'], jewelry: ['rings','bracelets','necklaces','pendants','rings'], home: ['kitchen','textiles','kitchen','textiles'] };
+    const names = { women: ['Кашемировое пальто','Шёлковое платье','Кожаная куртка','Ботильоны','Кроссовки','Шелковый платок','Жакет букле','Вечернее платье','Оверсайз свитер','Клатч','Топ с вышивкой','Кардиган','Лоферы','Ремень','Пиджак'], men: ['Кожаные лоферы','Пальто даффлкот','Рубашка оксфорд','Твидовый пиджак','Джинсы слим','Запонки','Кашемировый свитер','Монки','Классические брюки','Часы'], kids: ['Детский пуховик','Платье для девочки','Кроссовки детские','Рюкзак','Комбинезон малыш','Куртка подросток'], jewelry: ['Серебряное кольцо','Золотой браслет','Жемчужное колье','Подвеска с бриллиантом','Кольцо с изумрудом'], home: ['Дизайнерская ваза','Льняные салфетки','Кухонный миксер','Плед кашемир'] };
     let generatedCount = 0;
     Object.entries({women:15, men:10, kids:6, jewelry:5, home:4}).forEach(([cat, count]) => {
         for(let i=0; i<count; i++){
@@ -1057,27 +940,21 @@
     });
 
     const newIndices = new Set();
-    while(newIndices.size < 5) {
-        const idx = Math.floor(Math.random() * products.length);
-        if(!products[idx].isNew) newIndices.add(idx);
-    }
+    while(newIndices.size < 5) { const idx = Math.floor(Math.random() * products.length); if(!products[idx].isNew) newIndices.add(idx); }
     newIndices.forEach(idx => { if(products[idx]) products[idx].isNew = true; });
 
     let currentFilter = null;
+    let searchTerm = '';
     let favorites = JSON.parse(localStorage.getItem('shso_fav')||'[]');
     const productGrid = document.getElementById('productGrid');
     const searchInput = document.getElementById('searchInput');
-    const resetBtn = document.getElementById('resetFiltersBtn');
-    const chipDiv = document.getElementById('activeFilterChip');
-    const chipLabel = document.getElementById('chipLabel');
-    const clearChipBtn = document.getElementById('clearChipBtn');
     const searchSuggestions = document.getElementById('searchSuggestions');
     const favCountSpan = document.getElementById('favCount');
     const favCountMobile = document.getElementById('favCountMobile');
     const hamburger = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
 
-    function renderProducts(filter=null, searchTerm=''){
+    function renderProducts(filter=null, term=''){
         let filtered = products;
         if(filter){
             if(filter.main === 'new') filtered = products.filter(p=>p.isNew);
@@ -1086,8 +963,8 @@
                 if(filter.sub) filtered = filtered.filter(p=>p.subcategory === filter.sub);
             }
         }
-        if(searchTerm.trim()){
-            filtered = filtered.filter(p=>p.title.toLowerCase().includes(searchTerm.toLowerCase()));
+        if(term.trim()){
+            filtered = filtered.filter(p=>p.title.toLowerCase().includes(term.toLowerCase()));
         }
         productGrid.innerHTML = '';
         filtered.forEach((p,idx)=>{
@@ -1114,7 +991,6 @@
             productGrid.appendChild(card);
         });
 
-        // слайдеры, избранное, кнопки
         document.querySelectorAll('.slider-container').forEach(container=>{
             const slides = container.querySelector('.slides');
             const dots = container.querySelectorAll('.dot');
@@ -1166,106 +1042,69 @@
     function updateFavCount(){
         const count = favorites.length;
         if(count>0) {
-            favCountSpan.textContent = count;
-            favCountSpan.style.display = 'flex';
-            favCountMobile.textContent = count;
-            favCountMobile.style.display = 'flex';
+            favCountSpan.textContent = count; favCountSpan.style.display = 'flex';
+            favCountMobile.textContent = count; favCountMobile.style.display = 'flex';
         } else {
-            favCountSpan.style.display = 'none';
-            favCountMobile.style.display = 'none';
+            favCountSpan.style.display = 'none'; favCountMobile.style.display = 'none';
         }
     }
 
     function applyFilter(main, sub=null){
-        if(main) currentFilter = {main, sub};
-        else currentFilter = null;
-        renderProducts(currentFilter, searchInput.value);
-        updateFilterUI();
+        if(main) currentFilter = {main, sub}; else currentFilter = null;
+        renderProducts(currentFilter, searchTerm);
         mobileMenu.classList.remove('active');
         hamburger.classList.remove('active');
     }
-    function updateFilterUI(){
-        resetBtn.style.display = (currentFilter||searchInput.value)?'inline-block':'none';
-        if(currentFilter){
-            const mapMain = {women:'Женское',men:'Мужское',kids:'Детское',jewelry:'Украшения',home:'Дом',new:'Новинки'};
-            const mapSub = {clothing:'Одежда',shoes:'Обувь',accessories:'Аксессуары',rings:'Кольца',bracelets:'Браслеты',necklaces:'Колье',pendants:'Подвески',kitchen:'Кухня',textiles:'Текстиль'};
-            let label = mapMain[currentFilter.main] || currentFilter.main;
-            if(currentFilter.sub) label += ' / ' + (mapSub[currentFilter.sub]||currentFilter.sub);
-            chipLabel.textContent = label;
-            chipDiv.style.display = 'flex';
-        } else {
-            chipDiv.style.display = 'none';
-        }
-    }
 
-    resetBtn.addEventListener('click',()=>{
-        currentFilter=null; searchInput.value=''; searchSuggestions.style.display='none';
-        renderProducts(null,''); updateFilterUI();
-    });
-    clearChipBtn.addEventListener('click',()=>{
-        currentFilter=null; renderProducts(null,searchInput.value); updateFilterUI();
-    });
-
-    searchInput.addEventListener('input',()=>{
-        const term = searchInput.value.toLowerCase();
-        if(!term.trim()) searchSuggestions.style.display='none';
+    searchInput.addEventListener('input', ()=>{
+        searchTerm = searchInput.value;
+        if(!searchTerm.trim()) searchSuggestions.style.display = 'none';
         else {
-            let src = products;
-            if(currentFilter){
-                if(currentFilter.main === 'new') src = products.filter(p=>p.isNew);
-                else {
-                    src = src.filter(p=>p.category === currentFilter.main);
-                    if(currentFilter.sub) src = src.filter(p=>p.subcategory === currentFilter.sub);
-                }
-            }
-            const matches = src.filter(p=>p.title.toLowerCase().includes(term)).slice(0,3);
+            const src = currentFilter ? (currentFilter.main==='new' ? products.filter(p=>p.isNew) : products.filter(p=>p.category===currentFilter.main && (!currentFilter.sub || p.subcategory===currentFilter.sub))) : products;
+            const matches = src.filter(p=>p.title.toLowerCase().includes(searchTerm.toLowerCase())).slice(0,3);
             if(matches.length){
                 searchSuggestions.innerHTML = matches.map(p=>`<li data-id="${p.id}">${p.title}</li>`).join('');
-                searchSuggestions.style.display='block';
-            } else searchSuggestions.style.display='none';
+                searchSuggestions.style.display = 'block';
+            } else searchSuggestions.style.display = 'none';
         }
-        renderProducts(currentFilter, searchInput.value);
-        updateFilterUI();
+        renderProducts(currentFilter, searchTerm);
     });
-    searchSuggestions.addEventListener('click',e=>{
+    searchSuggestions.addEventListener('click', e=>{
         const li = e.target.closest('li');
-        if(li){ searchInput.value=li.textContent; searchSuggestions.style.display='none'; renderProducts(currentFilter,searchInput.value); updateFilterUI(); }
+        if(li){
+            searchTerm = li.textContent;
+            searchInput.value = searchTerm;
+            searchSuggestions.style.display = 'none';
+            renderProducts(currentFilter, searchTerm);
+            document.getElementById('searchModal').classList.remove('active');
+        }
     });
-    document.addEventListener('click',e=>{ if(!e.target.closest('.search-wrapper')) searchSuggestions.style.display='none'; });
 
-    document.querySelectorAll('.main-nav [data-filter]').forEach(el=>el.addEventListener('click',e=>{
-        e.preventDefault();
-        const filter = el.dataset.filter;
-        if(filter==='new') applyFilter('new');
-        else applyFilter(filter);
-    }));
-    document.querySelectorAll('.mega-menu a[data-subfilter]').forEach(el=>el.addEventListener('click',e=>{
+    document.querySelectorAll('.main-nav [data-filter]').forEach(el=>el.addEventListener('click', e=>{ e.preventDefault(); applyFilter(el.dataset.filter); }));
+    document.querySelectorAll('.mega-menu a[data-subfilter]').forEach(el=>el.addEventListener('click', e=>{
         e.stopPropagation();
         const sub = el.dataset.subfilter;
-        if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
+        if(['men','women','kids','jewelry','home'].includes(sub)) applyFilter(sub);
         else {
             const parts = sub.split('-');
             const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
-            const subcat = parts.slice(1).join('-');
-            applyFilter(main, subcat);
+            applyFilter(main, parts.slice(1).join('-'));
         }
     }));
-    document.querySelectorAll('#mobileMenu a[data-filter], #mobileMenu a[data-subfilter]').forEach(link=>link.addEventListener('click',e=>{
-        const filter = link.dataset.filter;
-        const sub = link.dataset.subfilter;
+    document.querySelectorAll('#mobileMenu a[data-filter], #mobileMenu a[data-subfilter]').forEach(link=>link.addEventListener('click', e=>{
+        const filter = link.dataset.filter, sub = link.dataset.subfilter;
         if(filter) applyFilter(filter);
         else if(sub){
-            if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
+            if(['men','women','kids','jewelry','home'].includes(sub)) applyFilter(sub);
             else {
                 const parts = sub.split('-');
                 const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
-                const subcat = parts.slice(1).join('-');
-                applyFilter(main, subcat);
+                applyFilter(main, parts.slice(1).join('-'));
             }
         }
     }));
 
-    hamburger.addEventListener('click', (e) => {
+    hamburger.addEventListener('click', (e)=>{
         e.stopPropagation();
         hamburger.classList.toggle('active');
         mobileMenu.classList.toggle('active');
@@ -1286,82 +1125,46 @@
         document.getElementById('quickPrev').onclick = ()=>upd((cur-1+p.images.length+p.images.length)%p.images.length);
         document.getElementById('quickNext').onclick = ()=>upd((cur+1)%p.images.length);
         qDots.forEach((d,i)=>d.onclick=()=>upd(i));
-        let startX = 0;
         qSlides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-        qSlides.addEventListener('touchend', e => {
-            const diff = startX - e.changedTouches[0].clientX;
-            if(Math.abs(diff) > 40) upd(diff > 0 ? (cur+1)%p.images.length : (cur-1+p.images.length)%p.images.length);
-        });
+        qSlides.addEventListener('touchend', e => { const diff = startX - e.changedTouches[0].clientX; if(Math.abs(diff)>40) upd(diff>0?(cur+1)%p.images.length:(cur-1+p.images.length)%p.images.length); });
         document.getElementById('quickViewModal').classList.add('active');
     }
 
-    document.getElementById('favoritesBtn').addEventListener('click',()=>{
-        document.getElementById('favoritesModal').classList.add('active');
-        renderFavoritesModal();
-    });
+    document.getElementById('favoritesBtn').addEventListener('click', ()=>{ document.getElementById('favoritesModal').classList.add('active'); renderFavoritesModal(); });
     function removeFavorite(id) {
-        const idx = favorites.indexOf(id);
-        if (idx > -1) {
-            favorites.splice(idx, 1);
-            localStorage.setItem('shso_fav', JSON.stringify(favorites));
-            updateFavCount();
-            renderFavoritesModal();
-        }
+        favorites = favorites.filter(fid => fid !== id);
+        localStorage.setItem('shso_fav', JSON.stringify(favorites));
+        updateFavCount();
+        renderFavoritesModal();
     }
     function renderFavoritesModal(){
         const cont = document.getElementById('favoritesContainer');
         const favs = products.filter(p=>favorites.includes(p.id));
-        if (!favs.length) {
-            cont.innerHTML = '<p style="color:#888;">Вы ещё ничего не добавили</p>';
-            return;
-        }
-        cont.innerHTML = favs.map(p=>`
+        cont.innerHTML = favs.length ? favs.map(p=>`
             <div class="favorite-item">
                 <button class="remove-fav-btn" data-id="${p.id}" title="Удалить">✕</button>
                 <img src="${p.images[0]}" style="width:100%;height:180px;object-fit:cover;border-radius:6px;" alt="${p.title}">
                 <div style="font-size:0.8rem;margin:0.4rem 0;">${p.title}</div>
                 <button class="order-btn" style="font-size:0.65rem;padding:4px 12px;" onclick="window.open('https://t.me/Shopping_sOley','_blank')">ЗАКАЗАТЬ</button>
-            </div>
-        `).join('');
-        document.querySelectorAll('.remove-fav-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                removeFavorite(btn.dataset.id);
-            });
-        });
+            </div>`).join('') : '<p style="color:#888;">Вы ещё ничего не добавили</p>';
+        document.querySelectorAll('.remove-fav-btn').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); removeFavorite(btn.dataset.id); }));
     }
 
-    document.getElementById('profileBtn').addEventListener('click',()=>document.getElementById('profileModal').classList.add('active'));
+    document.getElementById('profileBtn').addEventListener('click', ()=>document.getElementById('profileModal').classList.add('active'));
     window.closeModal = id => document.getElementById(id).classList.remove('active');
-    document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');}));
+    document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click', function(e){ if(e.target===this) this.classList.remove('active'); }));
 
-    document.getElementById('searchToggle').addEventListener('click', ()=>{
-        document.getElementById('searchInput').focus();
-        window.scrollTo({top:0,behavior:'smooth'});
-    });
-    document.getElementById('navSearch').addEventListener('click', ()=>{
-        document.getElementById('searchInput').focus();
-        window.scrollTo({top:0,behavior:'smooth'});
-    });
-    document.getElementById('navCatalog').addEventListener('click', ()=>{
-        currentFilter=null; searchInput.value='';
-        renderProducts(null,''); updateFilterUI();
-        window.scrollTo({top:0,behavior:'smooth'});
-    });
-    document.getElementById('navFavorites').addEventListener('click', ()=>{
-        document.getElementById('favoritesModal').classList.add('active');
-        renderFavoritesModal();
-    });
-    document.getElementById('navProfile').addEventListener('click', ()=>{
-        document.getElementById('profileModal').classList.add('active');
-    });
+    document.getElementById('searchToggle').addEventListener('click', ()=>{ document.getElementById('searchModal').classList.add('active'); searchInput.focus(); });
+    document.getElementById('navSearch').addEventListener('click', ()=>{ document.getElementById('searchModal').classList.add('active'); searchInput.focus(); });
+    document.getElementById('navCatalog').addEventListener('click', ()=>{ currentFilter=null; searchTerm=''; searchInput.value=''; renderProducts(null,''); window.scrollTo({top:0,behavior:'smooth'}); });
+    document.getElementById('navFavorites').addEventListener('click', ()=>{ document.getElementById('favoritesModal').classList.add('active'); renderFavoritesModal(); });
+    document.getElementById('navProfile').addEventListener('click', ()=>document.getElementById('profileModal').classList.add('active'));
 
     const observer = new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');})},{threshold:0.2});
     document.querySelectorAll('.fade-in-up').forEach(el=>observer.observe(el));
 
     renderProducts();
     updateFavCount();
-    updateFilterUI();
 })();
 </script>
 </body>
