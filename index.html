@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>SHSO онлайн магазин | Премиум каталог</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        :root {
+            --accent: #CA2C92;
+            --accent-dark: #a61e74;
+            --text: #111;
+            --secondary: #666;
+            --border-light: #f2f2f2;
+            --shadow-card: 0 2px 12px rgba(0,0,0,0.03);
+            --shadow-hover: 0 12px 30px rgba(0,0,0,0.08);
+            --footer-bg: #1a1a1a;
+            --mobile-bar-height: 60px;
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #fff;
+            color: var(--text);
+            line-height: 1.4;
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+        }
+        a, button, summary { -webkit-tap-highlight-color: transparent; }
+
+        /* ----- HEADER ----- */
+        .header {
+            position: sticky;
+            top: 0;
+            background: #fff;
+            z-index: 100;
+            padding: 0 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+            border-bottom: 1px solid #f5f5f5;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+        }
+        .logo {
+            display: flex;
+            align-items: baseline;
+            gap: 0.4rem;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+        .logo svg {
+            width: 34px;
+            height: 34px;
+            align-self: center;
+        }
+        .logo-text {
+            font-size: 2rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #111;
+            line-height: 1;
+        }
+        .logo-text .accent-o { color: var(--accent); }
+        .logo-sub {
+            font-size: 0.7rem;
+            color: #999;
+            margin-left: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 400;
+            align-self: flex-end;
+            margin-bottom: 0.2rem;
+        }
+        .header-icons {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+            padding: 0;
+        }
+        .icon-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: #111;
+            fill: none;
+            stroke-width: 1.8;
+            transition: stroke 0.2s, transform 0.2s;
+        }
+        .icon-btn:hover svg {
+            stroke: var(--accent);
+            transform: scale(1.05);
+        }
+        .badge {
+            position: absolute;
+            top: -8px;
+            right: -12px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+        .badge:empty { display: none; }
+
+        .main-nav {
+            display: flex;
+            gap: 2.2rem;
+            font-weight: 500;
+            font-size: 0.8rem;
+            letter-spacing: 0.8px;
+            color: #333;
+        }
+        .menu-item {
+            position: relative;
+            cursor: pointer;
+            padding: 0.6rem 0;
+            transition: color 0.2s;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+        }
+        .menu-item:hover { color: var(--accent); }
+        .menu-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.2s;
+        }
+        .menu-item:hover::after { width: 100%; }
+
+        .mega-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100vw;
+            background: #fff;
+            box-shadow: 0 25px 45px rgba(0,0,0,0.06);
+            padding: 2.5rem 3rem;
+            display: flex;
+            gap: 3.5rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-4px);
+            transition: 0.25s;
+            z-index: 99;
+            border-top: 1px solid #f2f2f2;
+            flex-wrap: wrap;
+        }
+        .menu-item:hover .mega-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .mega-col {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            min-width: 150px;
+        }
+        .mega-col h4 {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: #aaa;
+            margin-bottom: 0.2rem;
+        }
+        .mega-col a {
+            font-size: 0.85rem;
+            color: #444;
+            cursor: pointer;
+            transition: color 0.2s;
+            font-weight: 400;
+            text-decoration: none;
+        }
+        .mega-col a:hover { color: var(--accent); }
+        .kids-cols { display: flex; gap: 3rem; }
+
+        /* hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background: #111;
+            transition: 0.25s;
+            display: block;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            flex-direction: column;
+            padding: 1.5rem 2.5rem 2rem;
+            box-shadow: 0 15px 25px rgba(0,0,0,0.08);
+            z-index: 98;
+            transform: translateY(-10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            max-height: calc(100vh - 80px);
+            overflow-y: auto;
+        }
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+        .mobile-menu details {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid #f5f5f5;
+            padding: 0.6rem 0;
+        }
+        .mobile-menu summary {
+            font-weight: 600;
+            font-size: 0.95rem;
+            list-style: none;
+            cursor: pointer;
+            color: #111;
+        }
+        .mobile-menu .sub-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+        }
+        .mobile-menu .sub-links a {
+            font-size: 0.9rem;
+            color: #444;
+        }
+
+        /* sticky filter */
+        .sticky-filter {
+            position: sticky;
+            top: 80px;
+            background: #fff;
+            z-index: 50;
+            padding: 1.2rem 2.5rem;
+            border-bottom: 1px solid #f6f6f6;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.2rem;
+            flex-wrap: wrap;
+        }
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid #eaeaea;
+            border-radius: 40px;
+            padding: 0.6rem 1.5rem;
+            width: 100%;
+            max-width: 420px;
+            background: #fff;
+            transition: border 0.2s;
+            position: relative;
+        }
+        .search-wrapper:focus-within { border-color: var(--accent); }
+        .search-wrapper input {
+            border: none;
+            outline: none;
+            font-size: 0.9rem;
+            width: 100%;
+            background: transparent;
+            padding: 0.3rem 0;
+            font-weight: 400;
+        }
+        .search-wrapper svg {
+            width: 17px;
+            height: 17px;
+            stroke: #999;
+            margin-right: 0.7rem;
+            flex-shrink: 0;
+        }
+        .search-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 0 0 12px 12px;
+            list-style: none;
+            display: none;
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+            margin-top: 4px;
+            overflow: hidden;
+        }
+        .search-suggestions li {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .search-suggestions li:hover {
+            background: #fdf3f8;
+            color: var(--accent);
+        }
+        .reset-btn {
+            background: none;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            padding: 0.55rem 1.6rem;
+            font-size: 0.8rem;
+            cursor: pointer;
+            color: #666;
+            transition: 0.2s;
+            display: none;
+            letter-spacing: 0.5px;
+        }
+        .reset-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .active-filter-chip {
+            background: var(--accent);
+            color: #fff;
+            border-radius: 30px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .active-filter-chip button {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.1rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        /* product grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            padding: 2rem 2.5rem 4rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        @media (max-width: 1024px) and (min-width: 768px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        }
+        @media (max-width: 767px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; padding: 1.2rem 1rem 2.5rem; }
+        }
+        .product-card {
+            background: #fff;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: var(--shadow-card);
+            overflow: hidden;
+            animation: cardFadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+        @keyframes cardFadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(202,44,146,0.15);
+        }
+        .product-card:hover .slider-arrow { opacity: 1; }
+        .product-card:hover .favorite-btn { opacity: 1; transform: scale(1); }
+        .new-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            z-index: 2;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 3px;
+            animation: badgePulse 2.2s infinite;
+        }
+        @keyframes badgePulse {
+            0% { box-shadow: 0 0 0 0 rgba(202,44,146,0.5); }
+            70% { box-shadow: 0 0 0 8px rgba(202,44,146,0); }
+            100% { box-shadow: 0 0 0 0 rgba(202,44,146,0); }
+        }
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(6px);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 2;
+            opacity: 0;
+            transform: scale(0.85);
+            transition: opacity 0.25s, transform 0.25s;
+        }
+        .favorite-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: none;
+            stroke: #333;
+            stroke-width: 1.8;
+        }
+        .favorite-btn.active svg { fill: var(--accent); stroke: var(--accent); }
+        .favorite-btn.heart-burst { animation: heartBurst 0.4s ease; }
+        @keyframes heartBurst {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4) rotate(12deg); }
+            100% { transform: scale(1); }
+        }
+        .slider-container {
+            position: relative;
+            aspect-ratio: 4/5;
+            overflow: hidden;
+            background: #fafafa;
+            cursor: pointer;
+        }
+        .slides {
+            display: flex;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            flex-shrink: 0;
+            filter: blur(8px);
+            transition: filter 0.4s ease;
+        }
+        .slides img.loaded { filter: blur(0); }
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.85);
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+            color: #333;
+            backdrop-filter: blur(4px);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .slider-arrow.prev { left: 8px; }
+        .slider-arrow.next { right: 8px; }
+        .dots {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+        .dot {
+            width: 5px;
+            height: 5px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            transition: background 0.2s;
+            box-shadow: 0 0 3px rgba(0,0,0,0.2);
+        }
+        .dot.active { background: var(--accent); }
+        .card-info {
+            padding: 14px 16px 18px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        .card-title {
+            font-weight: 500;
+            font-size: 0.85rem;
+            color: var(--text);
+            line-height: 1.3;
+            margin-bottom: 12px;
+        }
+        .order-btn {
+            background: transparent;
+            color: var(--accent);
+            border: 1.5px solid var(--accent);
+            border-radius: 30px;
+            padding: 8px 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            line-height: 1;
+        }
+        .order-btn::after {
+            content: '→';
+            font-size: 0.9rem;
+            transition: transform 0.2s;
+        }
+        .order-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 6px 18px rgba(202,44,146,0.35);
+            transform: translateY(-2px);
+        }
+        .order-btn:hover::after { transform: translateX(2px); }
+
+        /* modals */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.35);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 200;
+            padding: 1rem;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2.5rem;
+            max-width: 650px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.15);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1.2rem;
+            right: 1.2rem;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: #888;
+        }
+        .modal-close:hover { color: var(--accent); }
+
+        .favorite-item {
+            position: relative;
+            width: 140px;
+            text-align: center;
+        }
+        .remove-fav-btn {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.8rem;
+            color: #888;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            line-height: 1;
+        }
+        .remove-fav-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        /* footer */
+        .footer {
+            background: var(--footer-bg);
+            color: #ccc;
+            padding: 3rem 2.5rem 2rem;
+            margin-top: 2rem;
+        }
+        .footer-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+        .footer-col { flex: 1 1 180px; }
+        .footer-col h4 {
+            color: #fff;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .footer-col p, .footer-col li {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: #bbb;
+        }
+        .social-icons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.6rem;
+        }
+        .social-icons a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.25s;
+            color: #ccc;
+            text-decoration: none;
+            background: transparent;
+        }
+        .social-icons a svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+        .social-icons a.telegram:hover {
+            background: #2AABEE;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(42,171,238,0.6);
+        }
+        .social-icons a.instagram:hover {
+            background: #d6249f;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(214,36,159,0.6);
+        }
+        .social-icons a.whatsapp:hover {
+            background: #25D366;
+            color: #fff;
+            box-shadow: 0 0 12px rgba(37,211,102,0.6);
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: #777;
+        }
+
+        .mobile-nav-bar {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--mobile-bar-height);
+            background: #fff;
+            border-top: 1px solid #eaeaea;
+            z-index: 90;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+        .mobile-nav-bar .nav-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 100%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #888;
+            transition: color 0.2s;
+        }
+        .mobile-nav-bar .nav-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.8;
+            margin-bottom: 2px;
+        }
+        .mobile-nav-bar .nav-icon.active { color: var(--accent); }
+        .mobile-nav-bar .nav-icon span { font-size: 0.6rem; font-weight: 500; }
+        .badge-mobile .badge {
+            top: -2px;
+            right: -6px;
+            width: 16px;
+            height: 16px;
+            font-size: 0.6rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-nav { display: none; }
+            .hamburger { display: flex; }
+            .header-icons .icon-btn#searchToggle,
+            .header-icons .icon-btn#favoritesBtn,
+            .header-icons .icon-btn#profileBtn { display: none; }
+            .header { padding: 0 1.5rem; }
+        }
+        @media (max-width: 767px) {
+            .mobile-nav-bar { display: flex; }
+            body { padding-bottom: var(--mobile-bar-height); }
+            .footer { padding-bottom: calc(2rem + var(--mobile-bar-height)); }
+            .footer-grid {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                gap: 1.2rem;
+                -webkit-overflow-scrolling: touch;
+                padding-bottom: 0.5rem;
+            }
+            .footer-col { flex: 0 0 auto; min-width: 140px; }
+            .footer-col h4 { font-size: 0.75rem; }
+            .footer-col p, .footer-col li { font-size: 0.7rem; }
+            .social-icons { gap: 0.8rem; }
+            .sticky-filter { padding: 0.8rem 1rem; }
+        }
+        @media (max-width: 480px) {
+            .product-grid { gap: 12px; }
+            .header { padding: 0 1rem; }
+            .logo-text { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="logo" onclick="location.reload()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.5">
+            <path d="M2 20L4 9l4 4 4-7 4 7 4-4 2 11H2z" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="7" r="1.4" fill="var(--accent)" stroke="none"/>
+        </svg>
+        <span class="logo-text">SHS<span class="accent-o">O</span></span>
+        <span class="logo-sub">онлайн магазин</span>
+    </div>
+    <nav class="main-nav" id="mainNav">
+        <span class="menu-item" data-filter="new">НОВИНКИ</span>
+        <div class="menu-item" data-filter="men">МУЖСКОЕ
+            <div class="mega-menu">
+                <div class="mega-col"><h4>Мужское</h4><a data-subfilter="men">Все мужское</a><a data-subfilter="men-clothing">Одежда</a><a data-subfilter="men-shoes">Обувь</a><a data-subfilter="men-accessories">Аксессуары</a></div>
+            </div>
+        </div>
+        <div class="menu-item" data-filter="women">ЖЕНСКОЕ
+            <div class="mega-menu">
+                <div class="mega-col"><h4>Женское</h4><a data-subfilter="women">Все женское</a><a data-subfilter="women-clothing">Одежда</a><a data-subfilter="women-shoes">Обувь</a><a data-subfilter="women-accessories">Аксессуары</a></div>
+            </div>
+        </div>
+        <div class="menu-item" data-filter="kids">ДЕТСКОЕ
+            <div class="mega-menu">
+                <div class="kids-cols">
+                    <div class="mega-col"><h4>Мальчики</h4><a data-subfilter="boys-clothing">Одежда</a><a data-subfilter="boys-shoes">Обувь</a><a data-subfilter="boys-accessories">Аксессуары</a></div>
+                    <div class="mega-col"><h4>Девочки</h4><a data-subfilter="girls-clothing">Одежда</a><a data-subfilter="girls-shoes">Обувь</a><a data-subfilter="girls-accessories">Аксессуары</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="menu-item" data-filter="jewelry">УКРАШЕНИЯ
+            <div class="mega-menu">
+                <div class="mega-col"><h4>Украшения</h4><a data-subfilter="rings">Кольца</a><a data-subfilter="bracelets">Браслеты</a><a data-subfilter="necklaces">Колье</a><a data-subfilter="pendants">Подвески</a></div>
+            </div>
+        </div>
+        <div class="menu-item" data-filter="home">ДОМ
+            <div class="mega-menu">
+                <div class="mega-col"><h4>Дом</h4><a data-subfilter="kitchen">Кухня</a><a data-subfilter="textiles">Текстиль</a></div>
+            </div>
+        </div>
+    </nav>
+    <div class="header-icons">
+        <button class="icon-btn" id="searchToggle" title="Поиск"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+        <button class="icon-btn" id="favoritesBtn" title="Избранное"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="badge" id="favCount"></span></button>
+        <button class="icon-btn" id="profileBtn" title="Кабинет"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+        <button class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a data-filter="new" style="padding:0.8rem 0; border-bottom:1px solid #f0f0f0; display:block; font-weight:500;">НОВИНКИ</a>
+    <details><summary>МУЖСКОЕ</summary><div class="sub-links"><a data-filter="men">Все мужское</a><a data-subfilter="men-clothing">Одежда</a><a data-subfilter="men-shoes">Обувь</a><a data-subfilter="men-accessories">Аксессуары</a></div></details>
+    <details><summary>ЖЕНСКОЕ</summary><div class="sub-links"><a data-filter="women">Все женское</a><a data-subfilter="women-clothing">Одежда</a><a data-subfilter="women-shoes">Обувь</a><a data-subfilter="women-accessories">Аксессуары</a></div></details>
+    <details><summary>ДЕТСКОЕ</summary><div class="sub-links"><a data-filter="kids">Все детское</a><a data-subfilter="boys-clothing">Мальчики одежда</a><a data-subfilter="boys-shoes">Мальчики обувь</a><a data-subfilter="girls-clothing">Девочки одежда</a></div></details>
+    <details><summary>УКРАШЕНИЯ</summary><div class="sub-links"><a data-filter="jewelry">Все украшения</a><a data-subfilter="rings">Кольца</a><a data-subfilter="bracelets">Браслеты</a><a data-subfilter="necklaces">Колье</a><a data-subfilter="pendants">Подвески</a></div></details>
+    <details><summary>ДОМ</summary><div class="sub-links"><a data-filter="home">Все для дома</a><a data-subfilter="kitchen">Кухня</a><a data-subfilter="textiles">Текстиль</a></div></details>
+</div>
+
+<div class="sticky-filter">
+    <div class="search-wrapper" id="searchWrapper">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Поиск по каталогу..." autocomplete="off">
+        <ul class="search-suggestions" id="searchSuggestions"></ul>
+    </div>
+    <button class="reset-btn" id="resetFiltersBtn">Сбросить</button>
+    <div id="activeFilterChip" class="active-filter-chip" style="display:none;"><span id="chipLabel"></span><button id="clearChipBtn">&times;</button></div>
+</div>
+
+<main class="product-grid" id="productGrid"></main>
+
+<footer class="footer">
+    <div class="footer-grid">
+        <div class="footer-col fade-in-up"><h4>О нас</h4><p>SHSO — безупречный вкус в каждой детали.</p></div>
+        <div class="footer-col fade-in-up"><h4>Почему мы</h4><ul style="list-style:none;padding:0;"><li>✓ Качественная одежда</li><li>✓ Быстрая доставка</li><li>✓ Персональный сервис</li></ul></div>
+        <div class="footer-col fade-in-up"><h4>Как мы работаем</h4><p>① Выбор → ② Заказ в Telegram → ③ Доставка</p></div>
+        <div class="footer-col fade-in-up"><h4>Соцсети</h4>
+            <div class="social-icons">
+                <a href="https://t.me/Shopping_sOley" target="_blank" class="telegram" aria-label="Telegram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.87-1.25 4.79-2.08 5.76-2.47 2.74-1.14 3.31-1.34 3.68-1.34.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+                </a>
+                <a href="#" class="instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                </a>
+                <a href="#" class="whatsapp" aria-label="WhatsApp">
+                    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">© 2025 SHSO. Все права защищены.</div>
+</footer>
+
+<div class="modal" id="quickViewModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('quickViewModal')">&times;</button>
+        <div class="quick-slider" id="quickSlider">
+            <div class="slides"></div>
+            <button class="slider-arrow prev" id="quickPrev">‹</button>
+            <button class="slider-arrow next" id="quickNext">›</button>
+            <div class="dots" id="quickDots"></div>
+        </div>
+        <div class="quick-info">
+            <h3 id="quickTitle"></h3>
+            <div class="delivery-note"><span>⚡</span> Доставка сегодня</div>
+            <button class="order-btn" style="padding:10px 24px;" onclick="window.open('https://t.me/Shopping_sOley','_blank')">ЗАКАЗАТЬ</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="favoritesModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('favoritesModal')">&times;</button>
+        <h3 style="font-weight:500; margin-bottom:1.5rem;">Избранное</h3>
+        <div id="favoritesContainer" style="display:flex;flex-wrap:wrap;gap:1.8rem;justify-content:center;"></div>
+    </div>
+</div>
+
+<div class="modal" id="profileModal">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
+        <h3 style="font-weight:500;">Личный кабинет</h3>
+        <form style="display:flex;flex-direction:column;gap:1.2rem;margin-top:1.5rem;">
+            <input placeholder="Email" style="padding:0.8rem;border:1px solid #e0e0e0;border-radius:6px;font-family:Inter;">
+            <input type="password" placeholder="Пароль" style="padding:0.8rem;border:1px solid #e0e0e0;border-radius:6px;font-family:Inter;">
+            <button type="button" class="order-btn" style="width:fit-content; font-size:0.8rem;" onclick="window.open('https://t.me/Shopping_sOley','_blank')">Войти</button>
+        </form>
+    </div>
+</div>
+
+<div class="mobile-nav-bar" id="mobileNavBar">
+    <button class="nav-icon" id="navCatalog"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg><span>Каталог</span></button>
+    <button class="nav-icon" id="navSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><span>Поиск</span></button>
+    <button class="nav-icon badge-mobile" id="navFavorites"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span class="badge" id="favCountMobile"></span><span>Избранное</span></button>
+    <button class="nav-icon" id="navProfile"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Профиль</span></button>
+</div>
+
+<script>
+(function() {
+    // ========== PRODUCT DATA с подкатегориями ==========
+    const products = [];
+    const subcategories = {
+        women: ['clothing','clothing','clothing','shoes','shoes','accessories','clothing','clothing','shoes','accessories','clothing','clothing','shoes','accessories','clothing'],
+        men: ['shoes','clothing','clothing','clothing','shoes','accessories','clothing','shoes','clothing','accessories'],
+        kids: ['clothing','clothing','shoes','accessories','clothing','shoes'],
+        jewelry: ['rings','bracelets','necklaces','pendants','rings'],
+        home: ['kitchen','textiles','kitchen','textiles']
+    };
+    const names = {
+        women: ['Кашемировое пальто','Шёлковое платье','Кожаная куртка','Ботильоны','Кроссовки','Шелковый платок','Жакет букле','Вечернее платье','Оверсайз свитер','Клатч','Топ с вышивкой','Кардиган','Лоферы','Ремень','Пиджак'],
+        men: ['Кожаные лоферы','Пальто даффлкот','Рубашка оксфорд','Твидовый пиджак','Джинсы слим','Запонки','Кашемировый свитер','Монки','Классические брюки','Часы'],
+        kids: ['Детский пуховик','Платье для девочки','Кроссовки детские','Рюкзак','Комбинезон малыш','Куртка подросток'],
+        jewelry: ['Серебряное кольцо','Золотой браслет','Жемчужное колье','Подвеска с бриллиантом','Кольцо с изумрудом'],
+        home: ['Дизайнерская ваза','Льняные салфетки','Кухонный миксер','Плед кашемир']
+    };
+    Object.entries({women:15, men:10, kids:6, jewelry:5, home:4}).forEach(([cat, count]) => {
+        for(let i=0; i<count; i++){
+            const title = names[cat][i] || `${cat} арт.${i+1}`;
+            const sub = subcategories[cat][i] || 'clothing';
+            const images = [];
+            for(let s=1; s<=5; s++) images.push(`https://source.unsplash.com/400x500/?${cat}-fashion&sig=${cat}${i}${s}`);
+            products.push({id:`${cat}-${i}`, title, category:cat, subcategory:sub, images, isNew:false});
+        }
+    });
+    const newIndices = new Set();
+    while(newIndices.size<6) newIndices.add(Math.floor(Math.random()*40));
+    newIndices.forEach(idx => { if(products[idx]) products[idx].isNew = true; });
+
+    let currentFilter = null; // {main: 'women', sub: 'shoes'} или null
+    let favorites = JSON.parse(localStorage.getItem('shso_fav')||'[]');
+    const productGrid = document.getElementById('productGrid');
+    const searchInput = document.getElementById('searchInput');
+    const resetBtn = document.getElementById('resetFiltersBtn');
+    const chipDiv = document.getElementById('activeFilterChip');
+    const chipLabel = document.getElementById('chipLabel');
+    const clearChipBtn = document.getElementById('clearChipBtn');
+    const searchSuggestions = document.getElementById('searchSuggestions');
+    const favCountSpan = document.getElementById('favCount');
+    const favCountMobile = document.getElementById('favCountMobile');
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    function renderProducts(filter=null, searchTerm=''){
+        let filtered = products;
+        if(filter){
+            if(filter.main === 'new') filtered = products.filter(p=>p.isNew);
+            else {
+                filtered = filtered.filter(p=>p.category === filter.main);
+                if(filter.sub) filtered = filtered.filter(p=>p.subcategory === filter.sub);
+            }
+        }
+        if(searchTerm.trim()){
+            const term = searchTerm.toLowerCase();
+            filtered = filtered.filter(p=>p.title.toLowerCase().includes(term));
+        }
+        productGrid.innerHTML = '';
+        filtered.forEach((p,idx)=>{
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.style.animationDelay = `${idx*0.03}s`;
+            card.dataset.id = p.id;
+            const isFav = favorites.includes(p.id);
+            card.innerHTML = `
+                ${p.isNew?'<span class="new-badge">NEW</span>':''}
+                <button class="favorite-btn ${isFav?'active':''}" data-id="${p.id}">
+                    <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                </button>
+                <div class="slider-container">
+                    <div class="slides">${p.images.map(url=>`<img src="${url}" alt="${p.title}" loading="lazy">`).join('')}</div>
+                    <button class="slider-arrow prev">‹</button><button class="slider-arrow next">›</button>
+                    <div class="dots">${p.images.map((_,i)=>`<span class="dot ${i===0?'active':''}"></span>`).join('')}</div>
+                </div>
+                <div class="card-info">
+                    <div class="card-title">${p.title}</div>
+                    <button class="order-btn">ЗАКАЗАТЬ</button>
+                </div>
+            `;
+            productGrid.appendChild(card);
+        });
+        // остальной код слайдеров, избранного и т.д. без изменений...
+        document.querySelectorAll('.slider-container').forEach(container=>{
+            const slides = container.querySelector('.slides');
+            const dots = container.querySelectorAll('.dot');
+            const prev = container.querySelector('.prev');
+            const next = container.querySelector('.next');
+            let current = 0;
+            function update(index){
+                slides.style.transform = `translateX(-${index*100}%)`;
+                dots.forEach((d,i)=>d.classList.toggle('active',i===index));
+                current = index;
+            }
+            prev.addEventListener('click',e=>{e.stopPropagation(); update((current-1+5)%5);});
+            next.addEventListener('click',e=>{e.stopPropagation(); update((current+1)%5);});
+            dots.forEach((d,i)=>d.addEventListener('click',e=>{e.stopPropagation(); update(i);}));
+            let startX = 0;
+            container.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
+            container.addEventListener('touchend',e=>{const diff=startX-e.changedTouches[0].clientX; if(Math.abs(diff)>40) update(diff>0?(current+1)%5:(current-1+5)%5);});
+            container.querySelectorAll('img').forEach(img=>{
+                if(img.complete) img.classList.add('loaded');
+                else img.addEventListener('load',()=>img.classList.add('loaded'));
+            });
+            container.addEventListener('click',e=>{
+                if(e.target.closest('.slider-arrow,.favorite-btn,.order-btn')) return;
+                const card = container.closest('.product-card');
+                if(card) openQuickView(card.dataset.id);
+            });
+        });
+        document.querySelectorAll('.favorite-btn').forEach(btn=>{
+            btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                toggleFavorite(this.dataset.id);
+                this.classList.toggle('active', favorites.includes(this.dataset.id));
+                this.classList.add('heart-burst');
+                setTimeout(()=>this.classList.remove('heart-burst'),400);
+            });
+        });
+        document.querySelectorAll('.order-btn').forEach(btn=>{
+            btn.addEventListener('click',e=>{e.stopPropagation(); window.open('https://t.me/Shopping_sOley','_blank');});
+        });
+    }
+
+    function toggleFavorite(id){
+        const idx = favorites.indexOf(id);
+        if(idx>-1) favorites.splice(idx,1); else favorites.push(id);
+        localStorage.setItem('shso_fav', JSON.stringify(favorites));
+        updateFavCount();
+        if(document.getElementById('favoritesModal').classList.contains('active')) renderFavoritesModal();
+    }
+    function updateFavCount(){
+        const count = favorites.length;
+        if(count>0) {
+            favCountSpan.textContent = count;
+            favCountSpan.style.display = 'flex';
+            favCountMobile.textContent = count;
+            favCountMobile.style.display = 'flex';
+        } else {
+            favCountSpan.style.display = 'none';
+            favCountMobile.style.display = 'none';
+        }
+    }
+
+    function applyFilter(main, sub=null){
+        if(main) currentFilter = {main, sub};
+        else currentFilter = null;
+        renderProducts(currentFilter, searchInput.value);
+        updateFilterUI();
+        mobileMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+    function updateFilterUI(){
+        resetBtn.style.display = (currentFilter||searchInput.value)?'inline-block':'none';
+        if(currentFilter){
+            const mapMain = {women:'Женское',men:'Мужское',kids:'Детское',jewelry:'Украшения',home:'Дом',new:'Новинки'};
+            const mapSub = {clothing:'Одежда',shoes:'Обувь',accessories:'Аксессуары',rings:'Кольца',bracelets:'Браслеты',necklaces:'Колье',pendants:'Подвески',kitchen:'Кухня',textiles:'Текстиль'};
+            let label = mapMain[currentFilter.main] || currentFilter.main;
+            if(currentFilter.sub) label += ' / ' + (mapSub[currentFilter.sub]||currentFilter.sub);
+            chipLabel.textContent = label;
+            chipDiv.style.display = 'flex';
+        } else {
+            chipDiv.style.display = 'none';
+        }
+    }
+
+    resetBtn.addEventListener('click',()=>{
+        currentFilter=null; searchInput.value=''; searchSuggestions.style.display='none';
+        renderProducts(null,''); updateFilterUI();
+    });
+    clearChipBtn.addEventListener('click',()=>{
+        currentFilter=null; renderProducts(null,searchInput.value); updateFilterUI();
+    });
+
+    searchInput.addEventListener('input',()=>{
+        const term = searchInput.value.toLowerCase();
+        if(!term.trim()) searchSuggestions.style.display='none';
+        else {
+            let src = products;
+            if(currentFilter){
+                if(currentFilter.main === 'new') src = products.filter(p=>p.isNew);
+                else {
+                    src = src.filter(p=>p.category === currentFilter.main);
+                    if(currentFilter.sub) src = src.filter(p=>p.subcategory === currentFilter.sub);
+                }
+            }
+            const matches = src.filter(p=>p.title.toLowerCase().includes(term)).slice(0,3);
+            if(matches.length){
+                searchSuggestions.innerHTML = matches.map(p=>`<li data-id="${p.id}">${p.title}</li>`).join('');
+                searchSuggestions.style.display='block';
+            } else searchSuggestions.style.display='none';
+        }
+        renderProducts(currentFilter, searchInput.value);
+        updateFilterUI();
+    });
+    searchSuggestions.addEventListener('click',e=>{
+        const li = e.target.closest('li');
+        if(li){ searchInput.value=li.textContent; searchSuggestions.style.display='none'; renderProducts(currentFilter,searchInput.value); updateFilterUI(); }
+    });
+    document.addEventListener('click',e=>{ if(!e.target.closest('.search-wrapper')) searchSuggestions.style.display='none'; });
+
+    // main nav
+    document.querySelectorAll('.main-nav [data-filter]').forEach(el=>{
+        el.addEventListener('click',e=>{
+            e.preventDefault();
+            const filter = el.dataset.filter;
+            if(filter==='new') applyFilter('new');
+            else applyFilter(filter);
+        });
+    });
+    document.querySelectorAll('.mega-menu a[data-subfilter]').forEach(el=>{
+        el.addEventListener('click',e=>{
+            e.stopPropagation();
+            const sub = el.dataset.subfilter;
+            if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
+            else {
+                const parts = sub.split('-');
+                const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
+                const subcat = parts.slice(1).join('-');
+                applyFilter(main, subcat);
+            }
+        });
+    });
+    // mobile menu
+    document.querySelectorAll('#mobileMenu a[data-filter], #mobileMenu a[data-subfilter]').forEach(link=>{
+        link.addEventListener('click',e=>{
+            const filter = link.dataset.filter;
+            const sub = link.dataset.subfilter;
+            if(filter) applyFilter(filter);
+            else if(sub){
+                if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
+                else {
+                    const parts = sub.split('-');
+                    const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
+                    const subcat = parts.slice(1).join('-');
+                    applyFilter(main, subcat);
+                }
+            }
+        });
+    });
+
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+    });
+
+    function openQuickView(pid){
+        const p = products.find(x=>x.id===pid); if(!p) return;
+        document.getElementById('quickTitle').textContent = p.title;
+        const slidesC = document.querySelector('#quickSlider .slides');
+        const dotsC = document.getElementById('quickDots');
+        slidesC.innerHTML = p.images.map(u=>`<img src="${u}" alt="${p.title}">`).join('');
+        dotsC.innerHTML = p.images.map((_,i)=>`<span class="dot ${i===0?'active':''}"></span>`).join('');
+        let cur=0;
+        const qSlides = document.querySelector('#quickSlider .slides');
+        const qDots = document.querySelectorAll('#quickDots .dot');
+        function upd(i){ qSlides.style.transform=`translateX(-${i*100}%)`; qDots.forEach((d,j)=>d.classList.toggle('active',j===i)); cur=i; }
+        document.getElementById('quickPrev').onclick = ()=>upd((cur-1+5)%5);
+        document.getElementById('quickNext').onclick = ()=>upd((cur+1)%5);
+        qDots.forEach((d,i)=>d.onclick=()=>upd(i));
+        document.getElementById('quickViewModal').classList.add('active');
+    }
+
+    document.getElementById('favoritesBtn').addEventListener('click',()=>{
+        document.getElementById('favoritesModal').classList.add('active');
+        renderFavoritesModal();
+    });
+    function removeFavorite(id) {
+        const idx = favorites.indexOf(id);
+        if (idx > -1) {
+            favorites.splice(idx, 1);
+            localStorage.setItem('shso_fav', JSON.stringify(favorites));
+            updateFavCount();
+            renderFavoritesModal();
+        }
+    }
+    function renderFavoritesModal(){
+        const cont = document.getElementById('favoritesContainer');
+        const favs = products.filter(p=>favorites.includes(p.id));
+        if (!favs.length) {
+            cont.innerHTML = '<p style="color:#888;">Вы ещё ничего не добавили</p>';
+            return;
+        }
+        cont.innerHTML = favs.map(p=>`
+            <div class="favorite-item">
+                <button class="remove-fav-btn" data-id="${p.id}" title="Удалить">✕</button>
+                <img src="${p.images[0]}" style="width:100%;height:180px;object-fit:cover;border-radius:6px;" alt="${p.title}">
+                <div style="font-size:0.8rem;margin:0.4rem 0;">${p.title}</div>
+                <button class="order-btn" style="font-size:0.65rem;padding:4px 12px;" onclick="window.open('https://t.me/Shopping_sOley','_blank')">ЗАКАЗАТЬ</button>
+            </div>
+        `).join('');
+        document.querySelectorAll('.remove-fav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                removeFavorite(btn.dataset.id);
+            });
+        });
+    }
+
+    document.getElementById('profileBtn').addEventListener('click',()=>document.getElementById('profileModal').classList.add('active'));
+    window.closeModal = id => document.getElementById(id).classList.remove('active');
+    document.querySelectorAll('.modal').forEach(m=>m.addEventListener('click',function(e){if(e.target===this)this.classList.remove('active');}));
+
+    document.getElementById('searchToggle').addEventListener('click', ()=>{
+        document.getElementById('searchInput').focus();
+        window.scrollTo({top:0,behavior:'smooth'});
+    });
+    document.getElementById('navSearch').addEventListener('click', ()=>{
+        document.getElementById('searchInput').focus();
+        window.scrollTo({top:0,behavior:'smooth'});
+    });
+    document.getElementById('navCatalog').addEventListener('click', ()=>{
+        currentFilter=null; searchInput.value='';
+        renderProducts(null,''); updateFilterUI();
+        window.scrollTo({top:0,behavior:'smooth'});
+    });
+    document.getElementById('navFavorites').addEventListener('click', ()=>{
+        document.getElementById('favoritesModal').classList.add('active');
+        renderFavoritesModal();
+    });
+    document.getElementById('navProfile').addEventListener('click', ()=>{
+        document.getElementById('profileModal').classList.add('active');
+    });
+
+    const observer = new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting)en.target.classList.add('visible');})},{threshold:0.2});
+    document.querySelectorAll('.fade-in-up').forEach(el=>observer.observe(el));
+
+    renderProducts();
+    updateFavCount();
+    updateFilterUI();
+})();
+</script>
+</body>
+</html>
