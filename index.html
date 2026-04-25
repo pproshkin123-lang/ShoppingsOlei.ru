@@ -34,7 +34,7 @@
         }
         a, button, summary { -webkit-tap-highlight-color: transparent; }
 
-        /* ----- HEADER ----- */
+        /* HEADER */
         .header {
             position: sticky;
             top: 0;
@@ -47,6 +47,7 @@
             height: 80px;
             border-bottom: 1px solid #f5f5f5;
             box-shadow: 0 2px 6px rgba(0,0,0,0.01);
+            position: relative;
         }
         .logo {
             display: flex;
@@ -127,6 +128,9 @@
         .badge:empty { display: none; }
 
         .main-nav {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             gap: 2.2rem;
             font-weight: 500;
@@ -219,10 +223,17 @@
             background: #111;
             transition: 0.25s;
             display: block;
+            border-radius: 0;
         }
-        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
-        .hamburger.active span:nth-child(2) { opacity: 0; }
-        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px,5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px,-5px);
+        }
 
         .mobile-menu {
             display: none;
@@ -395,7 +406,7 @@
             border-radius: 8px;
             display: flex;
             flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: box-shadow 0.3s, border-color 0.3s;
             box-shadow: var(--shadow-card);
             overflow: hidden;
             animation: cardFadeIn 0.5s ease forwards;
@@ -406,9 +417,8 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
             border-color: rgba(202,44,146,0.15);
+            box-shadow: var(--shadow-hover);
         }
         .product-card:hover .slider-arrow { opacity: 1; }
         .product-card:hover .favorite-btn { opacity: 1; transform: scale(1); }
@@ -526,27 +536,37 @@
             box-shadow: 0 0 3px rgba(0,0,0,0.2);
         }
         .dot.active { background: var(--accent); }
+
+        /* увеличен отступ между названием и кнопкой */
         .card-info {
-            padding: 14px 16px 18px;
+            padding: 18px 16px 24px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
+            justify-content: space-between;
+            min-height: 90px;
         }
         .card-title {
             font-weight: 500;
             font-size: 0.85rem;
             color: var(--text);
             line-height: 1.3;
-            margin-bottom: 12px;
+            max-height: 2.6em;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            width: 100%;
+            margin-bottom: auto;
         }
         .order-btn {
             background: transparent;
             color: var(--accent);
             border: 1.5px solid var(--accent);
             border-radius: 30px;
-            padding: 8px 20px;
-            font-size: 0.7rem;
+            padding: 10px 22px;
+            font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1.5px;
             cursor: pointer;
@@ -556,6 +576,7 @@
             align-items: center;
             gap: 6px;
             line-height: 1;
+            margin-top: 12px;
         }
         .order-btn::after {
             content: '→';
@@ -570,13 +591,13 @@
         }
         .order-btn:hover::after { transform: translateX(2px); }
 
-        /* modals */
+        /* modals — убран блюр, фон стал полупрозрачным без размытия */
         .modal {
             display: none;
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.35);
-            backdrop-filter: blur(8px);
+            background: rgba(0,0,0,0.5);
+            /* backdrop-filter удалён, чтобы фото было чётким */
             justify-content: center;
             align-items: center;
             z-index: 200;
@@ -605,6 +626,42 @@
             color: #888;
         }
         .modal-close:hover { color: var(--accent); }
+
+        .quick-slider {
+            position: relative;
+            margin-bottom: 1.5rem;
+            touch-action: pan-y;
+        }
+        .quick-slider .slides {
+            aspect-ratio: 4/5;
+            height: auto;
+        }
+        .quick-slider .slides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .quick-info {
+            text-align: left;
+        }
+        .quick-info h3 {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .quick-info .description {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .delivery-note {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: #4a4a4a;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
 
         .favorite-item {
             position: relative;
@@ -651,7 +708,9 @@
             margin: 0 auto;
             flex-wrap: wrap;
         }
-        .footer-col { flex: 1 1 180px; }
+        .footer-col {
+            flex: 1 1 180px;
+        }
         .footer-col h4 {
             color: #fff;
             font-size: 0.85rem;
@@ -768,13 +827,11 @@
             body { padding-bottom: var(--mobile-bar-height); }
             .footer { padding-bottom: calc(2rem + var(--mobile-bar-height)); }
             .footer-grid {
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                gap: 1.2rem;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 0.5rem;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
             }
-            .footer-col { flex: 0 0 auto; min-width: 140px; }
+            .footer-col { min-width: 0; }
             .footer-col h4 { font-size: 0.75rem; }
             .footer-col p, .footer-col li { font-size: 0.7rem; }
             .social-icons { gap: 0.8rem; }
@@ -860,10 +917,8 @@
 
 <footer class="footer">
     <div class="footer-grid">
-        <div class="footer-col fade-in-up"><h4>О нас</h4><p>SHSO — безупречный вкус в каждой детали.</p></div>
-        <div class="footer-col fade-in-up"><h4>Почему мы</h4><ul style="list-style:none;padding:0;"><li>✓ Качественная одежда</li><li>✓ Быстрая доставка</li><li>✓ Персональный сервис</li></ul></div>
-        <div class="footer-col fade-in-up"><h4>Как мы работаем</h4><p>① Выбор → ② Заказ в Telegram → ③ Доставка</p></div>
-        <div class="footer-col fade-in-up"><h4>Соцсети</h4>
+        <div class="footer-col fade-in-up"><h4>Почему нас выбирают</h4><ul style="list-style:none;padding:0;"><li>✓ Качественная одежда</li><li>✓ Быстрая доставка</li><li>✓ Персональный сервис</li></ul></div>
+        <div class="footer-col fade-in-up"><h4>Контакты</h4>
             <div class="social-icons">
                 <a href="https://t.me/Shopping_sOley" target="_blank" class="telegram" aria-label="Telegram">
                     <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.87-1.25 4.79-2.08 5.76-2.47 2.74-1.14 3.31-1.34 3.68-1.34.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
@@ -891,6 +946,7 @@
         </div>
         <div class="quick-info">
             <h3 id="quickTitle"></h3>
+            <p class="description" id="quickDescription"></p>
             <div class="delivery-note"><span>⚡</span> Доставка сегодня</div>
             <button class="order-btn" style="padding:10px 24px;" onclick="window.open('https://t.me/Shopping_sOley','_blank')">ЗАКАЗАТЬ</button>
         </div>
@@ -926,8 +982,53 @@
 
 <script>
 (function() {
-    // ========== PRODUCT DATA с подкатегориями ==========
     const products = [];
+
+    // Удалена вторая карточка, оставлены три реальных товара
+    products.push({
+        id: 'custom-1',
+        title: 'Штаны ZEGNA',
+        description: 'Size M-3XL',
+        category: 'men',
+        subcategory: 'clothing',
+        images: [
+            "https://i.postimg.cc/DwyS9YDY/photo-2026-04-25-12-14-22.jpg",
+            "https://i.postimg.cc/P53CTQs2/photo-2026-04-25-12-14-31.jpg",
+            "https://i.postimg.cc/3xJksb6s/photo-2026-04-25-12-14-34.jpg",
+            "https://i.postimg.cc/sg6Ms4dK/photo-2026-04-25-12-14-39.jpg"
+        ],
+        isNew: false
+    });
+    products.push({
+        id: 'custom-3',
+        title: 'Штаны ZEGNA',
+        description: 'Size M-3XL',
+        category: 'men',
+        subcategory: 'clothing',
+        images: [
+            "https://i.postimg.cc/ryRnXfW5/photo-2026-04-25-12-15-14.jpg",
+            "https://i.postimg.cc/44HLkWtz/photo-2026-04-25-12-15-16.jpg",
+            "https://i.postimg.cc/T257Mtmg/photo-2026-04-25-12-15-20.jpg",
+            "https://i.postimg.cc/BZPY9mDK/photo-2026-04-25-12-15-23.jpg"
+        ],
+        isNew: false
+    });
+    products.push({
+        id: 'custom-4',
+        title: 'Куртка ZEGNA',
+        description: 'Size 48/56',
+        category: 'men',
+        subcategory: 'clothing',
+        images: [
+            "https://i.postimg.cc/hvt92P9v/photo-2026-04-25-12-15-46.jpg",
+            "https://i.postimg.cc/j2SzMdzP/photo-2026-04-25-12-15-51.jpg",
+            "https://i.postimg.cc/D0wqxyqG/photo-2026-04-25-12-15-54.jpg",
+            "https://i.postimg.cc/kGgxTXxt/photo-2026-04-25-12-16-00.jpg"
+        ],
+        isNew: true
+    });
+
+    // генерируем остальные 37 товаров (чтобы всего было 40)
     const subcategories = {
         women: ['clothing','clothing','clothing','shoes','shoes','accessories','clothing','clothing','shoes','accessories','clothing','clothing','shoes','accessories','clothing'],
         men: ['shoes','clothing','clothing','clothing','shoes','accessories','clothing','shoes','clothing','accessories'],
@@ -942,20 +1043,27 @@
         jewelry: ['Серебряное кольцо','Золотой браслет','Жемчужное колье','Подвеска с бриллиантом','Кольцо с изумрудом'],
         home: ['Дизайнерская ваза','Льняные салфетки','Кухонный миксер','Плед кашемир']
     };
+    let generatedCount = 0;
     Object.entries({women:15, men:10, kids:6, jewelry:5, home:4}).forEach(([cat, count]) => {
         for(let i=0; i<count; i++){
+            if(generatedCount >= 37) break;
             const title = names[cat][i] || `${cat} арт.${i+1}`;
             const sub = subcategories[cat][i] || 'clothing';
             const images = [];
             for(let s=1; s<=5; s++) images.push(`https://source.unsplash.com/400x500/?${cat}-fashion&sig=${cat}${i}${s}`);
-            products.push({id:`${cat}-${i}`, title, category:cat, subcategory:sub, images, isNew:false});
+            products.push({id:`${cat}-${i}-gen`, title, description:'', category:cat, subcategory:sub, images, isNew:false});
+            generatedCount++;
         }
     });
+
     const newIndices = new Set();
-    while(newIndices.size<6) newIndices.add(Math.floor(Math.random()*40));
+    while(newIndices.size < 5) {
+        const idx = Math.floor(Math.random() * products.length);
+        if(!products[idx].isNew) newIndices.add(idx);
+    }
     newIndices.forEach(idx => { if(products[idx]) products[idx].isNew = true; });
 
-    let currentFilter = null; // {main: 'women', sub: 'shoes'} или null
+    let currentFilter = null;
     let favorites = JSON.parse(localStorage.getItem('shso_fav')||'[]');
     const productGrid = document.getElementById('productGrid');
     const searchInput = document.getElementById('searchInput');
@@ -979,8 +1087,7 @@
             }
         }
         if(searchTerm.trim()){
-            const term = searchTerm.toLowerCase();
-            filtered = filtered.filter(p=>p.title.toLowerCase().includes(term));
+            filtered = filtered.filter(p=>p.title.toLowerCase().includes(searchTerm.toLowerCase()));
         }
         productGrid.innerHTML = '';
         filtered.forEach((p,idx)=>{
@@ -1006,7 +1113,8 @@
             `;
             productGrid.appendChild(card);
         });
-        // остальной код слайдеров, избранного и т.д. без изменений...
+
+        // слайдеры, избранное, кнопки
         document.querySelectorAll('.slider-container').forEach(container=>{
             const slides = container.querySelector('.slides');
             const dots = container.querySelectorAll('.dot');
@@ -1125,19 +1233,28 @@
     });
     document.addEventListener('click',e=>{ if(!e.target.closest('.search-wrapper')) searchSuggestions.style.display='none'; });
 
-    // main nav
-    document.querySelectorAll('.main-nav [data-filter]').forEach(el=>{
-        el.addEventListener('click',e=>{
-            e.preventDefault();
-            const filter = el.dataset.filter;
-            if(filter==='new') applyFilter('new');
-            else applyFilter(filter);
-        });
-    });
-    document.querySelectorAll('.mega-menu a[data-subfilter]').forEach(el=>{
-        el.addEventListener('click',e=>{
-            e.stopPropagation();
-            const sub = el.dataset.subfilter;
+    document.querySelectorAll('.main-nav [data-filter]').forEach(el=>el.addEventListener('click',e=>{
+        e.preventDefault();
+        const filter = el.dataset.filter;
+        if(filter==='new') applyFilter('new');
+        else applyFilter(filter);
+    }));
+    document.querySelectorAll('.mega-menu a[data-subfilter]').forEach(el=>el.addEventListener('click',e=>{
+        e.stopPropagation();
+        const sub = el.dataset.subfilter;
+        if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
+        else {
+            const parts = sub.split('-');
+            const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
+            const subcat = parts.slice(1).join('-');
+            applyFilter(main, subcat);
+        }
+    }));
+    document.querySelectorAll('#mobileMenu a[data-filter], #mobileMenu a[data-subfilter]').forEach(link=>link.addEventListener('click',e=>{
+        const filter = link.dataset.filter;
+        const sub = link.dataset.subfilter;
+        if(filter) applyFilter(filter);
+        else if(sub){
             if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
             else {
                 const parts = sub.split('-');
@@ -1145,25 +1262,8 @@
                 const subcat = parts.slice(1).join('-');
                 applyFilter(main, subcat);
             }
-        });
-    });
-    // mobile menu
-    document.querySelectorAll('#mobileMenu a[data-filter], #mobileMenu a[data-subfilter]').forEach(link=>{
-        link.addEventListener('click',e=>{
-            const filter = link.dataset.filter;
-            const sub = link.dataset.subfilter;
-            if(filter) applyFilter(filter);
-            else if(sub){
-                if(sub==='men'||sub==='women'||sub==='kids'||sub==='jewelry'||sub==='home') applyFilter(sub);
-                else {
-                    const parts = sub.split('-');
-                    const main = parts[0]==='boys'||parts[0]==='girls'?'kids':parts[0];
-                    const subcat = parts.slice(1).join('-');
-                    applyFilter(main, subcat);
-                }
-            }
-        });
-    });
+        }
+    }));
 
     hamburger.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -1174,6 +1274,7 @@
     function openQuickView(pid){
         const p = products.find(x=>x.id===pid); if(!p) return;
         document.getElementById('quickTitle').textContent = p.title;
+        document.getElementById('quickDescription').textContent = p.description || '';
         const slidesC = document.querySelector('#quickSlider .slides');
         const dotsC = document.getElementById('quickDots');
         slidesC.innerHTML = p.images.map(u=>`<img src="${u}" alt="${p.title}">`).join('');
@@ -1182,9 +1283,15 @@
         const qSlides = document.querySelector('#quickSlider .slides');
         const qDots = document.querySelectorAll('#quickDots .dot');
         function upd(i){ qSlides.style.transform=`translateX(-${i*100}%)`; qDots.forEach((d,j)=>d.classList.toggle('active',j===i)); cur=i; }
-        document.getElementById('quickPrev').onclick = ()=>upd((cur-1+5)%5);
-        document.getElementById('quickNext').onclick = ()=>upd((cur+1)%5);
+        document.getElementById('quickPrev').onclick = ()=>upd((cur-1+p.images.length+p.images.length)%p.images.length);
+        document.getElementById('quickNext').onclick = ()=>upd((cur+1)%p.images.length);
         qDots.forEach((d,i)=>d.onclick=()=>upd(i));
+        let startX = 0;
+        qSlides.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        qSlides.addEventListener('touchend', e => {
+            const diff = startX - e.changedTouches[0].clientX;
+            if(Math.abs(diff) > 40) upd(diff > 0 ? (cur+1)%p.images.length : (cur-1+p.images.length)%p.images.length);
+        });
         document.getElementById('quickViewModal').classList.add('active');
     }
 
