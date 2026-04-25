@@ -389,10 +389,7 @@
             height: 100%;
             object-fit: cover;
             flex-shrink: 0;
-            filter: blur(8px);
-            transition: filter 0.4s ease;
         }
-        .slides img.loaded { filter: blur(0); }
         .slider-arrow {
             position: absolute;
             top: 50%;
@@ -908,6 +905,7 @@
 (function() {
     const products = [];
 
+    // первые три реальных товара
     products.push({
         id: 'custom-1', title: 'Штаны ZEGNA', description: 'Size M-3XL', category: 'men', subcategory: 'clothing',
         images: ["https://i.postimg.cc/DwyS9YDY/photo-2026-04-25-12-14-22.jpg","https://i.postimg.cc/P53CTQs2/photo-2026-04-25-12-14-31.jpg","https://i.postimg.cc/3xJksb6s/photo-2026-04-25-12-14-34.jpg","https://i.postimg.cc/sg6Ms4dK/photo-2026-04-25-12-14-39.jpg"],
@@ -1008,10 +1006,6 @@
             let startX = 0;
             container.addEventListener('touchstart',e=>{startX=e.touches[0].clientX;});
             container.addEventListener('touchend',e=>{const diff=startX-e.changedTouches[0].clientX; if(Math.abs(diff)>40) update(diff>0?(current+1)%5:(current-1+5)%5);});
-            container.querySelectorAll('img').forEach(img=>{
-                if(img.complete) img.classList.add('loaded');
-                else img.addEventListener('load',()=>img.classList.add('loaded'));
-            });
             container.addEventListener('click',e=>{
                 if(e.target.closest('.slider-arrow,.favorite-btn,.order-btn')) return;
                 const card = container.closest('.product-card');
